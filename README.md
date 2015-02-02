@@ -37,6 +37,54 @@ Note the above scripts assume a json file containing the access key id and secre
 access key (named admin.json) is available one directory level up from the
 project directory - see config.rb for details.
 
+The admin.json scripts should contain the access key and secret key for
+an account scoped to a group with the following policies.
+
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "Stmt1400688864000",
+          "Effect": "Allow",
+          "Action": [
+            "cognito-identity:CreateIdentityPool",
+            "cognito-identity:SetIdentityPoolRoles"
+          ],
+          "Resource": [
+            "*"
+          ]
+        }
+      ]
+    }
+
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:CreateRole",
+            "iam:PutRolePolicy"
+          ],
+          "Resource": "*"
+        }
+      ]
+    }
+
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:List*"
+          ],
+          "Resource": "*"
+        }
+      ]
+    }
+
+
 For details on setting up a Vagrant environment for configuring ruby needed to
 create the configuration, go [here.](https://github.com/d-smith/aws-ruby-samples#ruby-setup---vagrant-vm)
 
