@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/config')
 
-(role_name, s3resource, id_pool_id) = ARGV
-unless role_name && s3resource && id_pool_id
-  puts "Usage: create_cognito_role <role name> <s3 file resource ARN> <cognito identity pool id>"
+(role_name, bucket_name, object_name, id_pool_id) = ARGV
+unless role_name && bucket_name && object_name && id_pool_id
+  puts "Usage: create_cognito_role <role name> <s3 bucket name> <s3 object name> <cognito identity pool id>"
   exit 1
 end
+
+s3resource = "arn:aws:s3:::#{bucket_name}/#{object_name}"
 
 iamClient = AWS::IAM::Client::new
 
